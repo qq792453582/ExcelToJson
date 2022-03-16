@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0-develop00310" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="NUnit" Version="3.13.2" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<None Remove="**/.gitkeep" />
+		<None Remove="**/~$*" />
+		<None Update="Test\Data\建筑.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>
