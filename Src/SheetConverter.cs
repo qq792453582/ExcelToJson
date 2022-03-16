@@ -18,7 +18,7 @@ namespace ExcelToJson
 
 		public JToken? data { get; private set; }
 
-		public SheetConverter Convert(Func<object, object>? objectConverter = null)
+		public SheetConverter Convert(Func<JToken, JToken>? objectConverter = null)
 		{
 			for (var columnsNumber = 0; columnsNumber < m_DataTable.Columns.Count; columnsNumber++)
 			{
@@ -38,6 +38,8 @@ namespace ExcelToJson
 				}
 			}
 
+			if (objectConverter != null && data != null) data = objectConverter(data);
+
 			return this;
 		}
 
@@ -55,10 +57,11 @@ namespace ExcelToJson
 			{
 				if (int.TryParse(propertyKey.Substring(1), out var index))
 				{
-					target ??= new JArray();
+					if (Extensions.IsNullOrEmpty(target)) target = new JArray();
 					if (target is JArray array)
 					{
-						for (var i = index; i < array.Count; i++) array.Add(null!);
+						for (var i = array.Count; i <= index; i++) array.Add(null!);
+						;
 						if (depth == propertyKeys.Length - 1)
 						{
 							array[index] = new JValue(value);
@@ -73,7 +76,7 @@ namespace ExcelToJson
 			}
 			else
 			{
-				target ??= new JObject();
+				if (Extensions.IsNullOrEmpty(target)) target = new JObject();
 
 				if (target is JObject obj)
 				{

@@ -1,8 +1,9 @@
 ﻿using System.Data;
+using Newtonsoft.Json.Linq;
 
 namespace ExcelToJson
 {
-	public static class DataTableExtensions
+	public static class Extensions
 	{
 		public static object? ElementAt(this DataTable dataTable, int rowsNum, int columnsNumber)
 		{
@@ -16,6 +17,11 @@ namespace ExcelToJson
 			if (dataTable.Rows.Count > rowsNum) return dataTable.Rows[rowsNum][columnsKey];
 
 			return null;
+		}
+
+		public static bool IsNullOrEmpty(JToken? token)
+		{
+			return token == null || token.Type == JTokenType.Null;
 		}
 	}
 }

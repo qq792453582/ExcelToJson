@@ -1,25 +1,47 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
-namespace ExcelToJson.Test;
-
-[TestFixture]
-public class ExcelConvertTest
+namespace ExcelToJson.Test
 {
-	[Test]
-	public void TestReadExcel()
+	[TestFixture]
+	public class ExcelConvertTest
 	{
-		var convert = new ExcelConverter();
-		using (var excelReader = convert.ReadExcel("Test/Data/建筑.xlsx"))
+		[Test]
+		public void TestReadExcel()
 		{
-			excelReader.ReadSheet("标签页")?.Convert().Apply("builds");
+			var convert = new ExcelConverter();
+
+			using (var excelReader = convert.ReadExcel("Test/Data/建筑.xlsx"))
+			{
+				var pages = new Dictionary<string, object>();
+
+				excelReader.ReadSheet("标签页")?.Convert(data =>
+				{
+					if (data is JArray array)
+						for (var i = 0; i < array.Count; i++)
+						{
+							var pageData = array[i];
+
+							if (!Extensions.IsNullOrEmpty(pageData))
+							{
+								var pageName = pageData.Value<string>("name");
+								if (!string.IsNullOrEmpty(pageName)) pages[pageName] = i;
+							}
+						}
+
+					return data;
+				}).Apply("builds");
+
+				convert.RegisterLocalType("buildGroupPage", pages);
+			}
+
+			Console.WriteLine(JsonConvert.SerializeObject(convert.data));
 		}
 
-		Console.WriteLine(JsonConvert.SerializeObject(convert.data));
-	}
-
-	[Test]
-	public void CodeTest()
-	{
+		[Test]
+		public void CodeTest()
+		{
+		}
 	}
 }
