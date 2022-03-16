@@ -116,11 +116,10 @@ namespace ExcelToJson
 				{
 					key = key.Substring(1);
 					var value = m_DataTable.ElementAt(rowsNumber, key)?.ToString();
-					if (!string.IsNullOrEmpty(value))
-					{
-						var typeName = m_DataTable.ElementAt(1, key)?.ToString();
-						key = m_Converter.ParseValue(typeName, value)?.ToString();
-					}
+					if (string.IsNullOrEmpty(value)) return null;
+
+					var typeName = m_DataTable.ElementAt(1, key)?.ToString();
+					key = m_Converter.ParseValue(typeName, value)?.ToString();
 				}
 
 				if (string.IsNullOrEmpty(key)) return null;

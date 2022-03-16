@@ -14,7 +14,7 @@ namespace ExcelToJson
 			"是",
 			"1",
 			"True",
-			"true",
+			"true"
 		};
 
 		private readonly Dictionary<string, object> m_LocalTypeRegedit = new();
@@ -96,13 +96,14 @@ namespace ExcelToJson
 		{
 			if (string.IsNullOrEmpty(typeName)) return null;
 
-			if (!m_LocalTypeRegedit.TryGetValue(typeName, out var typeConverterOrMap)) s_GlobalTypeRegedit.TryGetValue(typeName, out typeConverterOrMap);
+			if (!m_LocalTypeRegedit.TryGetValue(typeName, out var typeConverter)) s_GlobalTypeRegedit.TryGetValue(typeName, out typeConverter);
 
-			if (typeConverterOrMap is Func<string?, object> typeConverter) return typeConverter(value);
+			if (typeConverter is Func<string?, object> typeConvertFunc) return typeConvertFunc(value);
 
-			if (!string.IsNullOrEmpty(value)
-			    && typeConverterOrMap is Dictionary<string, object> typeMap)
-				return typeMap.GetValueOrDefault(value);
+			if (!string.IsNullOrEmpty(value))
+			{
+				if (typeConverter is Dictionary<string, object> typeMap) return typeMap.GetValueOrDefault(value);
+			}
 
 			return null;
 		}
