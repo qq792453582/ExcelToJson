@@ -12,7 +12,9 @@ namespace ExcelToJson
 		private static readonly HashSet<string> s_TrueValues = new()
 		{
 			"是",
-			"1"
+			"1",
+			"True",
+			"true",
 		};
 
 		private readonly Dictionary<string, object> m_LocalTypeRegedit = new();
@@ -22,6 +24,7 @@ namespace ExcelToJson
 			RegisterGlobalType("string", ValueToString);
 			RegisterGlobalType("number", ValueToNumber);
 			RegisterGlobalType("bool", ValueToBool);
+			RegisterGlobalType("int", ValueToInteger);
 		}
 
 		public JObject data { get; } = new();
@@ -39,6 +42,12 @@ namespace ExcelToJson
 		public static object ValueToNumber(string value)
 		{
 			double.TryParse(value, out var number);
+			return number;
+		}
+
+		public static object ValueToInteger(string value)
+		{
+			int.TryParse(value, out var number);
 			return number;
 		}
 

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace ExcelToJson.Test
 {
@@ -34,19 +35,49 @@ namespace ExcelToJson.Test
 				}).Apply("buildPages");
 
 				converter.RegisterLocalType("buildGroupPage", pages);
+
+				excelReader.ReadSheet("建筑组")?.Convert().Apply("buildGroups");
 			}
 
+			Console.WriteLine(JsonConvert.SerializeObject(converter.data));
 			Assert.IsTrue(JToken.DeepEquals(converter.data, JsonConvert.DeserializeObject<JObject>(
 				@"{
-					'buildPages':[{
-							'name':'基础'
-						}]
+					buildPages:[{
+							name: '基础'
+					}],
+					buildGroups:{
+						'1': {
+							id: 1,
+							name: '墙',
+							order: 1,
+							page: 0,
+							mergeInGroup: 0,
+							usePaint: true,
+							useErase: true,
+							editorOnly: false,
+						}
+					}
 				}")));
 		}
 
 		[Test]
 		public void CodeTest()
 		{
+			Console.WriteLine(JsonConvert.SerializeObject(JsonConvert.DeserializeObject(
+				@"{
+					buildPages:[{
+							name: '基础'
+					}],
+					buildGroups:{
+						1: {
+							id: 1,
+							name: '墙',
+							order: 1,
+							page: 0,
+							mergeInGroup: 0,
+						}
+					}
+				}")));
 		}
 	}
 }
