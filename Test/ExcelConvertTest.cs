@@ -10,9 +10,9 @@ namespace ExcelToJson.Test
 		[Test]
 		public void TestReadExcel()
 		{
-			var convert = new ExcelConverter();
+			var converter = new ExcelConverter();
 
-			using (var excelReader = convert.ReadExcel("Test/Data/建筑.xlsx"))
+			using (var excelReader = converter.ReadExcel("Test/Data/建筑.xlsx"))
 			{
 				var pages = new Dictionary<string, object>();
 
@@ -31,12 +31,17 @@ namespace ExcelToJson.Test
 						}
 
 					return data;
-				}).Apply("builds");
+				}).Apply("buildPages");
 
-				convert.RegisterLocalType("buildGroupPage", pages);
+				converter.RegisterLocalType("buildGroupPage", pages);
 			}
 
-			Console.WriteLine(JsonConvert.SerializeObject(convert.data));
+			Assert.IsTrue(JToken.DeepEquals(converter.data, JsonConvert.DeserializeObject<JObject>(
+				@"{
+					'buildPages':[{
+							'name':'基础'
+						}]
+				}")));
 		}
 
 		[Test]
