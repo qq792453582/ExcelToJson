@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Text;
 using ExcelDataReader;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -7,9 +10,9 @@ namespace ExcelToJson
 {
 	public class ExcelConverter
 	{
-		private static readonly Dictionary<string, object> s_GlobalTypeRegedit = new();
+		private static readonly Dictionary<string, object> s_GlobalTypeRegedit = new Dictionary<string, object>();
 
-		private static readonly HashSet<string> s_TrueValues = new()
+		private static readonly HashSet<string> s_TrueValues = new HashSet<string>
 		{
 			"是",
 			"1",
@@ -17,7 +20,7 @@ namespace ExcelToJson
 			"true"
 		};
 
-		private readonly Dictionary<string, object> m_LocalTypeRegedit = new();
+		private readonly Dictionary<string, object> m_LocalTypeRegedit = new Dictionary<string, object>();
 
 		static ExcelConverter()
 		{
@@ -27,7 +30,7 @@ namespace ExcelToJson
 			RegisterGlobalType("int", ValueToInteger);
 		}
 
-		public JObject data { get; } = new();
+		public JObject data { get; } = new JObject();
 
 		public static object ValueToString(string value)
 		{
@@ -63,10 +66,9 @@ namespace ExcelToJson
 
 		public ExcelReader ReadExcel(string filePath)
 		{
+			Console.WriteLine(Path.GetFullPath(filePath));
 			using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
 			{
-				Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
 				using (var excelDataReader = ExcelReaderFactory.CreateReader(stream))
 				{
 					var dataSet = excelDataReader.AsDataSet(new ExcelDataSetConfiguration

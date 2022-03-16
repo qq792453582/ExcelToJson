@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <Title>ExcelToJson</Title>
+    <Authors>一醉青衫</Authors>
+    <Description>
+      这是一个将Excel表格转换为Json Object的库，你可以拿到你想要的任何结构的数据对象
+
+      此转换器并附带一个转换为Json文本的方法， 你也可以很方便的拓展这个转换器，以你想要的方式导出为任意格式
+    </Description>
+    <PackageProjectUrl>https://github.com/ztail/ExcelToJson</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="**/.gitkeep" />
+    <None Remove="**/~$*" />
+  </ItemGroup>
+
+</Project>

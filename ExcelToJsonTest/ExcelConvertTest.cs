@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
@@ -10,9 +11,11 @@ namespace ExcelToJson.Test
 		[Test]
 		public void TestReadExcel()
 		{
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
 			var converter = new ExcelConverter();
 
-			using (var excelReader = converter.ReadExcel("Test/Data/建筑.xlsx"))
+			using (var excelReader = converter.ReadExcel("Data/建筑.xlsx"))
 			{
 				var pages = new Dictionary<string, object>();
 
@@ -40,10 +43,7 @@ namespace ExcelToJson.Test
 				excelReader.ReadSheet("显示规则")?.Convert(data =>
 				{
 					var typeMap = data.ToObject<Dictionary<string, object>>();
-					if (typeMap != null)
-					{
-						converter.RegisterLocalType("buildDisplay", typeMap);
-					}
+					if (typeMap != null) converter.RegisterLocalType("buildDisplay", typeMap);
 					return data;
 				});
 
@@ -80,26 +80,6 @@ namespace ExcelToJson.Test
 							effect: '',
 							displayRule: 'well',
 							editorOnly: false,
-						}
-					}
-				}")));
-		}
-
-		[Test]
-		public void CodeTest()
-		{
-			Console.WriteLine(JsonConvert.SerializeObject(JsonConvert.DeserializeObject(
-				@"{
-					buildPages:[{
-							name: '基础'
-					}],
-					buildGroups:{
-						1: {
-							id: 1,
-							name: '墙',
-							order: 1,
-							page: 0,
-							mergeInGroup: 0,
 						}
 					}
 				}")));
