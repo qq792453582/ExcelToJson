@@ -19,7 +19,7 @@ namespace ExcelToJson
 
 		public JToken? data { get; private set; }
 
-		public SheetConverter Convert(Func<JToken, JToken>? objectConverter = null)
+		public SheetConverter Convert(Func<JToken, JToken>? postprocessor = null)
 		{
 			for (var columnsNumber = 0; columnsNumber < m_DataTable.Columns.Count; columnsNumber++)
 			{
@@ -39,7 +39,7 @@ namespace ExcelToJson
 				}
 			}
 
-			if (objectConverter != null && data != null) data = objectConverter(data);
+			if (postprocessor != null && data != null) data = postprocessor(data);
 
 			return this;
 		}
@@ -96,9 +96,9 @@ namespace ExcelToJson
 			return target;
 		}
 
-		public void Apply(string name)
+		public void Apply(string key)
 		{
-			if (data != null) m_Converter.data.Add(name, data);
+			if (data != null) m_Converter.data.Add(key, data);
 		}
 
 		public void ApplyToType(string typeName)
