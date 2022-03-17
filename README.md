@@ -21,12 +21,12 @@ converter.RegisterLocalType(typeName, tpyeConveter);
 
 ## 表格配置
 
-|   ID   |    名字    | 标记1         | 标记2         |
-|:------:|:--------:|-------------|-------------|
+|   ID   |    名字    |     标记1     |     标记2     |
+|:------:|:--------:|:-----------:|:-----------:|
 |        | &ID.name | &ID.mark.#0 | &ID.mark.#1 |
-| number |  string  | number      | number      |
-|   1    |    熊大    | 1           | 2           |
-|   2    |    熊二    | 3           | 4           |
+| number |  string  |   number    |   number    |
+|   1    |    熊大    |      1      |      2      |
+|   2    |    熊二    |      3      |      4      |
 
 ### 输出
 ```json
