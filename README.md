@@ -9,7 +9,8 @@
 
 ### Unity
 
-[ExcelToJson.unitypackage](https://github.com/ztail/ExcelToJson/releases/download/0.0.1/ExcelToJson.unitypackage)
+1. 在PackageManager中添加 com.unity.nuget.newtonsoft-json 包
+2. 下载并使用[ExcelToJson.unitypackage](https://github.com/ztail/ExcelToJson/releases/download/0.0.1/ExcelToJson.unitypackage)
 
 ## 如何使用
 ```c#
