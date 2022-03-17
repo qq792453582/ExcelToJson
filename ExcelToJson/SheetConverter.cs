@@ -96,10 +96,40 @@ namespace ExcelToJson
 			return target;
 		}
 
-
 		public void Apply(string name)
 		{
 			if (data != null) m_Converter.data.Add(name, data);
+		}
+
+		public void ApplyToType(string typeName)
+		{
+			if (data is JObject obj)
+			{
+				m_Converter.RegisterLocalType(typeName, value =>
+				{
+					if (string.IsNullOrEmpty(value))
+					{
+						return null;
+					}
+
+					return obj[value]?.ToObject<object>();
+				});
+			}
+			else if (data is JArray array)
+			{
+				m_Converter.RegisterLocalType(typeName, value =>
+				{
+					if (int.TryParse(value, out var index))
+					{
+						if (array.Count > index)
+						{
+							return array[index].ToObject<object>();
+						}
+					}
+
+					return null;
+				});
+			}
 		}
 
 		private string[]? GetPropertyKeys(string? propertyPath, int rowsNumber)

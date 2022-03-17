@@ -40,12 +40,7 @@ namespace ExcelToJson.Test
 
 				excelReader.ReadSheet("建筑组")?.Convert().Apply("buildGroups");
 
-				excelReader.ReadSheet("显示规则")?.Convert(data =>
-				{
-					var typeMap = data.ToObject<Dictionary<string, object>>();
-					if (typeMap != null) converter.RegisterLocalType("buildDisplay", typeMap);
-					return data;
-				});
+				excelReader.ReadSheet("显示规则")?.Convert().ApplyToType("buildDisplay");
 
 				excelReader.ReadSheet("建筑")?.Convert().Apply("builds");
 			}

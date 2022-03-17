@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Text;
 using ExcelDataReader;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -84,7 +83,7 @@ namespace ExcelToJson
 			}
 		}
 
-		public void RegisterLocalType(string typeName, Func<string?, object> typeConverter)
+		public void RegisterLocalType(string typeName, Func<string?, object?> typeConverter)
 		{
 			m_LocalTypeRegedit.Add(typeName, typeConverter);
 		}
