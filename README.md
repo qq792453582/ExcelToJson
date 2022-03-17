@@ -5,6 +5,16 @@
 
 此转换器并附带转换为Json文本的方法， 你也可以很方便的拓展这个转换器，以你想要的方式导出为任意格式
 
+## 安装
+
+### Unity
+
+#### 通过软件包管理器(Package Manager)安装ExcelToJson
+
+使用Unity的包管理器 - 'Add package from git URL' 使用以下URL添加包
+
+> https://github.com/ztail/ExcelToJson?path=ExcelToJson-Unity/Packages/ExcelToJson#main
+
 ## 如何使用
 ```c#
 var converter = new ExcelConverter();
