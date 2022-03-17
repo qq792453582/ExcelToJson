@@ -9,11 +9,7 @@
 
 ### Unity
 
-#### 通过软件包管理器(Package Manager)安装ExcelToJson
-
-使用Unity的包管理器 - 'Add package from git URL' 使用以下URL添加包
-
-> https://github.com/ztail/ExcelToJson?path=ExcelToJson-Unity/Packages/ExcelToJson#main
+[ExcelToJson.unitypackage](https://github.com/ztail/ExcelToJson/releases/download/0.0.1/ExcelToJson.unitypackage)
 
 ## 如何使用
 ```c#
