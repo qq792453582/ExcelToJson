@@ -1,0 +1,32 @@
+{
+  "name": "com.ztail.excel-to-json",
+  "displayName": "Excel To Json",
+  "description": "Excel Convert To Json Object",
+  "version": "0.0.1",
+  "unity": "2022.1",
+  "author": {
+    "name": "Esoteric Software",
+    "email": "contact@esotericsoftware.com",
+    "url": "http://esotericsoftware.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:EsotericSoftware/spine-runtimes.git"
+  },
+  "keywords": [
+    "spine",
+    "spine-csharp",
+    "runtimes",
+    "2d",
+    "skeletal",
+    "animation"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/EsotericSoftware/spine-runtimes/issues"
+  },
+  "homepage": "https://github.com/EsotericSoftware/spine-runtimes#readme",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.0.1"
+  }
+}
