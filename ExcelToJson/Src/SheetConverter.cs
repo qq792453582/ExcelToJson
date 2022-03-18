@@ -34,12 +34,18 @@ namespace ExcelToJson
 						var value = m_DataTable.ElementAt(rowsNum, columnsNumber)?.ToString();
 						var result = m_Converter.ParseValue(typeName, value);
 
-						if (result != null) SetValue(propertyKeyTokens, result);
+						if (result != null)
+						{
+							SetValue(propertyKeyTokens, result);
+						}
 					}
 				}
 			}
 
-			if (postprocessor != null && data != null) data = postprocessor(data);
+			if (postprocessor != null && data != null)
+			{
+				data = postprocessor(data);
+			}
 
 			return this;
 		}
@@ -61,8 +67,11 @@ namespace ExcelToJson
 					if (Extensions.IsNullOrEmpty(target)) target = new JArray();
 					if (target is JArray array)
 					{
-						for (var i = array.Count; i <= index; i++) array.Add(null!);
-						;
+						for (var i = array.Count; i <= index; i++)
+						{
+							array.Add(null!);
+						}
+
 						if (depth == propertyKeys.Length - 1)
 						{
 							array[index] = new JValue(value);
@@ -70,14 +79,20 @@ namespace ExcelToJson
 						else
 						{
 							var token = SetValue(array[index], propertyKeys, depth + 1, value);
-							if (token != null) array[index] = token;
+							if (token != null)
+							{
+								array[index] = token;
+							}
 						}
 					}
 				}
 			}
 			else
 			{
-				if (Extensions.IsNullOrEmpty(target)) target = new JObject();
+				if (Extensions.IsNullOrEmpty(target))
+				{
+					target = new JObject();
+				}
 
 				if (target is JObject obj)
 				{
@@ -88,7 +103,10 @@ namespace ExcelToJson
 					else
 					{
 						var token = SetValue(obj[propertyKey], propertyKeys, depth + 1, value);
-						if (token != null) obj[propertyKey] = token;
+						if (token != null)
+						{
+							obj[propertyKey] = token;
+						}
 					}
 				}
 			}
@@ -98,7 +116,10 @@ namespace ExcelToJson
 
 		public void Apply(string key)
 		{
-			if (data != null) m_Converter.data.Add(key, data);
+			if (data != null)
+			{
+				m_Converter.data.Add(key, data);
+			}
 		}
 
 		public void ApplyToType(string typeName)
@@ -140,27 +161,41 @@ namespace ExcelToJson
 			for (var i = 0; i < keys.Length; i++)
 			{
 				var key = keys[i];
+
 				var isIndex = key.StartsWith("#");
-				if (isIndex) key = key.Substring(1);
+				if (isIndex)
+				{
+					key = key.Substring(1);
+				}
 
 				if (key.StartsWith("&"))
 				{
 					key = key.Substring(1);
 					var value = m_DataTable.ElementAt(rowsNumber, key)?.ToString();
-					if (string.IsNullOrEmpty(value)) return null;
+					if (string.IsNullOrEmpty(value))
+					{
+						return null;
+					}
 
 					var typeName = m_DataTable.ElementAt(1, key)?.ToString();
 					key = m_Converter.ParseValue(typeName, value)?.ToString();
 				}
 
-				if (string.IsNullOrEmpty(key)) return null;
+				if (string.IsNullOrEmpty(key))
+				{
+					return null;
+				}
 
 				if (isIndex)
 				{
 					if (int.TryParse(key, out _))
+					{
 						key = "#" + key;
+					}
 					else
+					{
 						return null;
+					}
 				}
 
 				keys[i] = key;

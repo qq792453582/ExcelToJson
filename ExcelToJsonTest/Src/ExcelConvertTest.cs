@@ -22,6 +22,7 @@ namespace ExcelToJson.Test
 				excelReader.ReadSheet("标签页")?.Convert(data =>
 				{
 					if (data is JArray array)
+					{
 						for (var i = 0; i < array.Count; i++)
 						{
 							var pageData = array[i];
@@ -29,9 +30,13 @@ namespace ExcelToJson.Test
 							if (!Extensions.IsNullOrEmpty(pageData))
 							{
 								var pageName = pageData.Value<string>("name");
-								if (!string.IsNullOrEmpty(pageName)) pages[pageName] = i;
+								if (!string.IsNullOrEmpty(pageName))
+								{
+									pages[pageName] = i;
+								}
 							}
 						}
+					}
 
 					return data;
 				}).Apply("buildPages");

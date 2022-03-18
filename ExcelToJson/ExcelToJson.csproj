@@ -12,6 +12,8 @@
       此转换器并附带一个转换为Json文本的方法， 你也可以很方便的拓展这个转换器，以你想要的方式导出为任意格式
     </Description>
     <PackageProjectUrl>https://github.com/ztail/ExcelToJson</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Ztail.ExcelToJson</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

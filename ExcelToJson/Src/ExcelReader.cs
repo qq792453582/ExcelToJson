@@ -24,7 +24,10 @@ namespace ExcelToJson
 		{
 			var dataTable = m_DataSet.Tables[sheetName];
 
-			if (dataTable != null) return new SheetConverter(m_Converter, dataTable);
+			if (dataTable != null)
+			{
+				return new SheetConverter(m_Converter, dataTable);
+			}
 
 
 			return null;
