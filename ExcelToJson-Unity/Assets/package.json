@@ -2,7 +2,7 @@
   "name": "com.ztail.excel-to-json",
   "displayName": "Excel To Json",
   "description": "Excel Convert To Json Object",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "unity": "2022.1",
   "author": {
     "name": "Esoteric Software",
