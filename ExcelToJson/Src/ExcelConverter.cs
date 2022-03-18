@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using ExcelDataReader;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -97,13 +97,22 @@ namespace ExcelToJson
 		{
 			if (string.IsNullOrEmpty(typeName)) return null;
 
-			if (!m_LocalTypeRegedit.TryGetValue(typeName, out var typeConverter)) s_GlobalTypeRegedit.TryGetValue(typeName, out typeConverter);
+			if (!m_LocalTypeRegedit.TryGetValue(typeName, out var typeConverter))
+			{
+				s_GlobalTypeRegedit.TryGetValue(typeName, out typeConverter);
+			}
 
-			if (typeConverter is Func<string?, object> typeConvertFunc) return typeConvertFunc(value);
+			if (typeConverter is Func<string?, object> typeConvertFunc)
+			{
+				return typeConvertFunc(value);
+			}
 
 			if (!string.IsNullOrEmpty(value))
 			{
-				if (typeConverter is Dictionary<string, object> typeMap) return typeMap.GetValueOrDefault(value);
+				if (typeConverter is Dictionary<string, object> typeMap)
+				{
+					return typeMap.GetValueOrDefault(value);
+				}
 			}
 
 			return null;
