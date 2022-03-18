@@ -65,8 +65,7 @@ namespace ExcelToJson
 
 		public ExcelReader ReadExcel(string filePath)
 		{
-			Console.WriteLine(Path.GetFullPath(filePath));
-			using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+			using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 			{
 				using (var excelDataReader = ExcelReaderFactory.CreateReader(stream))
 				{
