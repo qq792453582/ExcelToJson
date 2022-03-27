@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ExcelToJson
 {
-	public static class Extensions
+	internal static class Extensions
 	{
 		public static object? ElementAt(this DataTable dataTable, int rowsNum, int columnsNumber)
 		{
