@@ -4,7 +4,15 @@
 	"description": "Excel Convert To Json Object",
 	"version": "1.0.2",
 	"unity": "2022.1",
+	"author": {
+		"name": "Ztail",
+		"email": "qq792453582@outlook.com"
+	},
 	"dependencies": {
 		"com.unity.nuget.newtonsoft-json": "3.0.1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ztail/ExcelToJson.git"
 	}
 }
